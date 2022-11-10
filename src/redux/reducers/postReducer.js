@@ -2,13 +2,15 @@ import {
     CREATE_POST_ACTION,
     DELETE_POST_ACTION,
     ADD_LIKES,
-    TOTAL_LIKES
+    TOTAL_LIKES,
+    ADD_FAVORITE
 } from "../types";
 
 const initialState = {
     posts: [],
-    name:"Awesome App",
-    count: 0
+    name: "Awesome App",
+    count: 0,
+    favorite: []
 };
 
 export const postReducer = (state = initialState, action) => {
@@ -36,20 +38,28 @@ export const postReducer = (state = initialState, action) => {
                 }
                 return post
             })
-            
+
             return {
                 ...state, posts: AddLikes
             };
 
         case TOTAL_LIKES:
-            let res = state.posts.reduce((totallikes, post) => totallikes + post.likes,0);
-            
+            let res = state.posts.reduce((totallikes, post) => totallikes + post.likes, 0);
+
             return {
                 ...state, count: res
             }
-            
-
-        default:
-            return state;
+            case ADD_FAVORITE:
+                let Addfavorite = state.posts.map(post => {
+                    if (post.id === action.id) {
+                        state.favorite.push(post)
+                    }
+                    return post
+                })
+                return {
+                    ...state, favorite: Addfavorite
+                }
+                default:
+                    return state;
     }
 };

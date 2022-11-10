@@ -1,4 +1,4 @@
-import { CREATE_POST_ACTION, DELETE_POST_ACTION, ADD_LIKES, TOTAL_LIKES} from "../types"
+import { CREATE_POST_ACTION, DELETE_POST_ACTION, ADD_LIKES, TOTAL_LIKES, ADD_FAVORITE} from "../types"
 
 export const createPostAction = (newPost) => {
 	return {
@@ -27,5 +27,13 @@ export const addLikes=(id)=>{
 export const TotalLikes = ()=>{
 	return{
 		type: TOTAL_LIKES
+	}
+}
+
+
+export const Addfavorite=(id)=>{
+	return{
+		type: ADD_FAVORITE,
+		id
 	}
 }

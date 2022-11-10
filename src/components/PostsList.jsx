@@ -1,21 +1,35 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePostAction, addLikes, TotalLikes } from "../redux/actions/postActions";
+import { toast } from "react-toastify";
+import {
+  deletePostAction,
+  addLikes,
+  TotalLikes,
+  Addfavorite,
+} from "../redux/actions/postActions";
 
 const PostsList = () => {
   const { posts } = useSelector((state) => state.postState);
-  
+
   const dispatch = useDispatch();
 
   const handleDeletePost = (id) => {
     dispatch(deletePostAction(id));
-    dispatch(TotalLikes())
+    dispatch(TotalLikes());
+    toast.error("Post Deleted!",{theme:"dark"})
   };
 
   const handleLikes = (id) => {
     dispatch(addLikes(id));
-    dispatch(TotalLikes())
+    dispatch(TotalLikes());
+    
   };
+
+
+  const handleFavorite =(id)=>{
+    dispatch(Addfavorite(id));
+    toast.success("Added to favorite", {position: "top-left",theme: "colored", type:"info"})
+  }
 
   return (
     <div className="bg-white max-w-2xl mx-auto my-10 p-6 rounded-lg">
@@ -26,6 +40,10 @@ const PostsList = () => {
             <p>{post?.post}</p>
           </div>
           <div className="flex flex-col gap-2">
+            <button className="bg-orange-400 text-white rounded-lg p-2"
+            onClick={() => handleFavorite(post?.id)}>
+              Add favourite
+            </button>
             <button
               className="bg-green-400 text-white rounded-lg p-1"
               onClick={() => handleLikes(post?.id)}
