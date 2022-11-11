@@ -50,14 +50,15 @@ export const postReducer = (state = initialState, action) => {
                 ...state, count: res
             }
             case ADD_FAVORITE:
-                let Addfavorite = state.posts.map(post => {
-                    if (post.id === action.id) {
-                        state.favorite.push(post)
-                    }
-                    return post
-                })
+                let selectedItem = state.posts.find((post) => post.id === action.id);
+                // let Addfavorite = state.posts.map(post => {
+                //     if (post.id === action.id) {
+                //         state.favorite.push(post)
+                //     }
+                //     return post
+                // })
                 return {
-                    ...state, favorite: Addfavorite
+                    ...state, favorite: [...state.favorite, selectedItem]
                 }
                 default:
                     return state;
